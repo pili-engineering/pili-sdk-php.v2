@@ -23,17 +23,18 @@ final class Transport
     private function _setHeaders($method, $url, $body = NULL)
     {
         if ($method != HttpRequest::GET){
-            $ctType = 'application/json';
+            $cType = 'application/json';
+        } else {
+            $cType = NULL;
         }
-        $macToken = $this->_mac->MACToken($method, $url, $ctType, $body);
+        $macToken = $this->_mac->MACToken($method, $url, $cType, $body);
         $ua = Utils::getUserAgent(Config::SDK_USER_AGENT, Config::SDK_VERSION);
         return array(
-            'Content-Type'  => $ctType,
+            'Content-Type'  => $cType,
             'User-Agent'    => $ua,
             'Authorization' => $macToken,
         );
     }
-
 }
 
 ?>
