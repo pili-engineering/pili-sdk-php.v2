@@ -20,6 +20,11 @@
     - [x] 查询直播状态: stream->liveStatus()
     - [x] 保存直播回放: stream->save(start, end)
     - [x] 查询直播历史: stream->historyActivity(start, end)
+- Room
+    - [x] 创建房间: room->createRoom()
+    - [x] 查看房间: room->getRoom()
+    - [x] 删除房间: room->deleteRoom()
+    - [x] 生成房间token: room->roomToken()
 
 
 
@@ -47,6 +52,11 @@
         - [Get stream live status](#get-stream-live-status)
         - [Get stream history activity](#get-stream-history-activity)
         - [Save stream live playback](#save-stream-live-playback)
+    - [Room](#room)
+        - [Create a room](#create-a-room)
+        - [Get a room](#get-a-room)
+        - [Delete a room](#delete-a-room)
+        - [Generate a room token](#generate-a-room-token)
 
 
 ## Installation
@@ -365,6 +375,51 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
     */
 ```
 
+### Room
+
+#### Create a room
+
+```php
+$ak = "Tn8WCjE_6SU7q8CO3-BD-yF4R4IZbHBHeL8Q9t";
+$sk = "vLZNvZDojo1F-bYOjOqQ43-NYqlKAej0e9OweInh";
+$mac = new Qiniu\Pili\Mac($ak, $sk);
+$client = new Qiniu\Pili\RoomClient($mac);
+$resp=$client->createRoom("901","testroom");
+print_r($resp);
+```
+
+#### Get a room
+
+```php
+$ak = "Tn8WCjE_6SU7q8CO3-BD-yF4R4IZbHBHeL8Q9t";
+$sk = "vLZNvZDojo1F-bYOjOqQ43-NYqlKAej0e9OweInh";
+$mac = new Qiniu\Pili\Mac($ak, $sk);
+$client = new Qiniu\Pili\RoomClient($mac);
+$resp=$client->getRoom("testroom");
+print_r($resp);
+```
+
+#### Delete a room
+
+```php
+$ak = "Tn8WCjE_6SU7q8CO3-BD-yF4R4IZbHBHeL8Q9t";
+$sk = "vLZNvZDojo1F-bYOjOqQ43-NYqlKAej0e9OweInh";
+$mac = new Qiniu\Pili\Mac($ak, $sk);
+$client = new Qiniu\Pili\RoomClient($mac);
+$resp=$client->deleteRoom("testroom");
+print_r($resp);
+```
+
+#### Generate a room token
+
+```php
+$ak = "Tn8WCjE_6SU7q8CO3-BD-yF4R4IZbHBHeL8Q9t";
+$sk = "vLZNvZDojo1F-bYOjOqQ43-NYqlKAej0e9OweInh";
+$mac = new Qiniu\Pili\Mac($ak, $sk);
+$client = new Qiniu\Pili\RoomClient($mac);
+$resp=$client->roomToken("testroom","123",'admin',1785600000000);
+print_r($resp);
+```
 
 ## History
 - 2.0.0
