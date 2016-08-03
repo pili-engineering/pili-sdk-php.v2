@@ -8,6 +8,7 @@ final class Config
 
     public $USE_HTTPS = false;
     public $API_HOST = 'pili.qiniuapi.com';
+    public $RTCAPI_HOST = 'http://rtc.qiniuapi.com';
 //    public $API_HOST = '10.200.20.28:7778';
     public $API_VERSION = 'v2';
 
