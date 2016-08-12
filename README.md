@@ -145,7 +145,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 #### Generate RTMP publish URL
 
 ```php
-    $url=$stream->RTMPPublishURL("publish-rtmp.test.com", $hubName, $streamKey, 3600,$ak,$sk);
+    $url=Qiniu\Pili\RTMPPublishURL("publish-rtmp.test.com", $hubName, $streamKey, 3600,$ak,$sk);
     /*
     rtmp://publish-rtmp.test.com/PiliSDKTest/streamkey?e=1463023142&token=7O7hf7Ld1RrC_fpZdFvU8aCgOPuhw2K4eapYOdII:-5IVlpFNNGJHwv-2qKwVIakC0ME=
     */
@@ -155,7 +155,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 #### Generate RTMP play URL
 
 ```php
-    $url=$stream->RTMPPlayURL("live-rtmp.test.com", $hubName, $streamKey);
+    $url=Qiniu\Pili\RTMPPlayURL("live-rtmp.test.com", $hubName, $streamKey);
     /*
     rtmp://live-rtmp.test.com/PiliSDKTest/streamkey
     */
@@ -165,7 +165,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 #### Generate HLS play URL
 
 ```php
-    $url=$stream->HLSPlayURL("live-hls.test.com", $hubName, $streamKey);
+    $url=Qiniu\Pili\HLSPlayURL("live-hls.test.com", $hubName, $streamKey);
     /*
     http://live-hls.test.com/PiliSDKTest/streamkey.m3u8
     */
@@ -175,7 +175,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 #### Generate HDL play URL
 
 ```php
-    $url=$stream->HDLPlayURL("live-hdl.test.com", $hubName, $streamKey);
+    $url=Qiniu\Pili\HDLPlayURL("live-hdl.test.com", $hubName, $streamKey);
     /*
     http://live-hdl.test.com/PiliSDKTest/streamkey.flv
     */
@@ -185,7 +185,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 #### Generate snapshot play URL
 
 ```php
-    $url=$stream->SnapshotPlayURL("live-snapshot.test.com", $hubName, $streamKey);
+    $url=Qiniu\Pili\SnapshotPlayURL("live-snapshot.test.com", $hubName, $streamKey);
     /*
     http://live-snapshot.test.com/PiliSDKTest/streamkey.jpg
     */
