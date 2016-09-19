@@ -54,7 +54,7 @@ class Hub
         }
         $ret = array();
         $ret["keys"] = $keys;
-        $ret["omarker"] = $ret["marker"];
+        $ret["omarker"] = $marker;
         return $ret;
     }
 
