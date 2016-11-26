@@ -79,6 +79,18 @@ class Stream
         $body = json_encode($params);
         return $this->_transport->send(HttpRequest::POST, $url, $body);
     }
+
+    public function converts($converts=null)
+    {
+        $url = $this->_baseUrl . "/converts";
+        if(empty($converts)){
+                $params = array("converts"=>array("720p","480p"));
+        }else{
+                $params = array("converts"=>$converts);
+        }
+        $body = json_encode($params);
+        $this->_transport->send(HttpRequest::POST, $url, $body);
+    }
 }
 
 ?>
