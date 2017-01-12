@@ -11,8 +11,8 @@
 - Hub
     - [x] 创建流: hub->create(streamKey)
     - [x] 获得流: hub->stream(streamKey)
-    - [x] 列出流: hub->listLiveStreams(prefix, limit, marker)
-    - [x] 列出正在直播的流: hub->listStreams(prefix, limit, marker)
+    - [x] 列出流: hub->listStreams(prefix, limit, marker)
+    - [x] 列出正在直播的流: hub->listLiveStreams(prefix, limit, marker)
 - Stream
     - [x] 流信息: stream->info()
     - [x] 启用流: stream->enable()
