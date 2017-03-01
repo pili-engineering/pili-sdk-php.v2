@@ -8,7 +8,6 @@ final class Config
 
     public $USE_HTTPS = false;
     public $API_HOST = 'pili.qiniuapi.com';
-//    public $API_HOST = '10.200.20.28:7778';
     public $API_VERSION = 'v2';
 
     protected static $_instance = NULL;
