@@ -155,11 +155,8 @@ class Stream
      * @fname: 保存的文件名, 不指定会随机生成.
      * @time: Unix 时间戳, 保存的时间点, 默认为当前时间.
      * @format: 保存的文件格式, 默认为jpg.
-     * @pipeline: dora 的私有队列, 不指定则用默认队列.
-     * @notify: 回调通知地址, 如果指定则截图动作为异步模式.
      * RETURN
      * @frame: 保存到bucket里的文件名.
-     * @persistentID: 异步模式时，持久化异步处理任务ID，通常用不到该字段.
      */
     public function snapshot($options = NULL)
     {

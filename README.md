@@ -387,7 +387,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
         echo "Error:", $e, "\n";
     }
     /*
-    frame=[frame] persistentID=[persistentID]
+    frame=[frame]
     */
 ```
 
