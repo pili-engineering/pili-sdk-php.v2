@@ -134,6 +134,10 @@ class Stream
      * @format: 保存的文件格式, 默认为m3u8.
      * @pipeline: dora 的私有队列, 不指定则用默认队列.
      * @notify: 保存成功后的回调地址.
+     * @expireDays: 对应ts文件的过期时间.
+     * -1 表示不修改ts文件的expire属性.
+     * 0  表示修改ts文件生命周期为永久保存.
+     * >0 表示修改ts文件的的生命周期为ExpireDays.
      * RETURN
      * @frame: 保存到bucket里的文件名.
      * @persistentID: 异步模式时，持久化异步处理任务ID，通常用不到该字段.
