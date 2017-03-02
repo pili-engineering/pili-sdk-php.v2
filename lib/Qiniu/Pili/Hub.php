@@ -107,11 +107,12 @@ class Hub
      * PARAM
      * @streamKeys: 流名数组, 最大长度为100.
      * RETURN
-     * @key: 流名.
-     * @startAt: 直播开始的 Unix 时间戳, 0 表示当前没在直播.
-     * @clientIP: 直播的客户端 IP.
-     * @bps: 直播的码率.
-     * @fps: 直播的帧率.
+     * @Array
+     *   @key: 流名.
+     *   @startAt: 直播开始的 Unix 时间戳, 0 表示当前没在直播.
+     *   @clientIP: 直播的客户端 IP.
+     *   @bps: 直播的码率.
+     *   @fps: 直播的帧率.
      */
     public function batchLiveStatus($streamKeys)
     {

@@ -373,7 +373,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
         echo "Error:", $e, "\n";
     }
     /*
-    frame=[frame] persistentID=[persistentID]
+    fname=[fname] persistentID=[persistentID]
     */
 ```
 
@@ -387,7 +387,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
         echo "Error:", $e, "\n";
     }
     /*
-    frame=[frame]
+    fname=[fname]
     */
 ```
 
@@ -433,7 +433,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 
 
 ## History
-- 2.0.1
+- 2.1.0
     -   Update API
         - $hub->batchLiveStatus(streamKeys)
         - $stream->disableTill(till)

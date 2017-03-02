@@ -67,7 +67,7 @@ class Stream
         return $this->_transport->send(HttpRequest::POST, $url, $body);
     }
 
-    //查询直播状态, 如果不在直播返回Error: no live.
+    //查询直播状态.
     /*
      * RETURN
      * @startAt: 直播开始的 Unix 时间戳, 0 表示当前没在直播.
@@ -87,8 +87,9 @@ class Stream
      * @start: Unix 时间戳, 限定了查询的时间范围, 0 值表示不限定, 系统会返回所有时间的直播历史.
      * @end: Unix 时间戳, 限定了查询的时间范围, 0 值表示不限定, 系统会返回所有时间的直播历史.
      * RETURN
-     * @start: Unix 时间戳, 直播开始时间.
-     * @end: Unix 时间戳, 直播结束时间.
+     * @Array
+     *   @start: Unix 时间戳, 直播开始时间.
+     *   @end: Unix 时间戳, 直播结束时间.
      */
     public function historyActivity($start = NULL, $end = NULL)
     {
@@ -104,13 +105,13 @@ class Stream
         return $this->_transport->send(HttpRequest::GET, $url);
     }
 
-    //保存直播回放. 如果没直播数据, 返回Error:no data.
+    //保存直播回放.
     /*
      * PARAM
      * @start: Unix 时间戳, 起始时间, 0 值表示不指定, 则不限制起始时间.
      * @end: Unix 时间戳, 结束时间, 0 值表示当前时间.
      * RETURN
-     * @frame: 保存到bucket里的文件名, 由系统生成.
+     * @fname: 保存到bucket里的文件名, 由系统生成.
      */
     public function save($start = NULL, $end = NULL)
     {
@@ -125,7 +126,7 @@ class Stream
         return $this->_transport->send(HttpRequest::POST, $url, $body);
     }
 
-    //灵活度更高的保存直播回放. 如果没直播数据, 返回Error:no data.
+    //灵活度更高的保存直播回放.
     /*
      * PARAM
      * @fname: 保存的文件名, 不指定会随机生成.
@@ -135,11 +136,11 @@ class Stream
      * @pipeline: dora 的私有队列, 不指定则用默认队列.
      * @notify: 保存成功后的回调地址.
      * @expireDays: 对应ts文件的过期时间.
-     * -1 表示不修改ts文件的expire属性.
-     * 0  表示修改ts文件生命周期为永久保存.
-     * >0 表示修改ts文件的的生命周期为ExpireDays.
+     *   -1 表示不修改ts文件的expire属性.
+     *   0  表示修改ts文件生命周期为永久保存.
+     *   >0 表示修改ts文件的的生命周期为ExpireDays.
      * RETURN
-     * @frame: 保存到bucket里的文件名.
+     * @fname: 保存到bucket里的文件名.
      * @persistentID: 异步模式时，持久化异步处理任务ID，通常用不到该字段.
      */
     public function saveas($options = NULL)
@@ -160,7 +161,7 @@ class Stream
      * @time: Unix 时间戳, 保存的时间点, 默认为当前时间.
      * @format: 保存的文件格式, 默认为jpg.
      * RETURN
-     * @frame: 保存到bucket里的文件名.
+     * @fname: 保存到bucket里的文件名.
      */
     public function snapshot($options = NULL)
     {
