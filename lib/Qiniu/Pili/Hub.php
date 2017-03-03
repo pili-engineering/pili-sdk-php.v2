@@ -107,7 +107,7 @@ class Hub
      * PARAM
      * @streamKeys: 流名数组, 最大长度为100.
      * RETURN
-     * @Array
+     * @items: 数组. 每个item包含一个流的直播信息.
      *   @key: 流名.
      *   @startAt: 直播开始的 Unix 时间戳, 0 表示当前没在直播.
      *   @clientIP: 直播的客户端 IP.
