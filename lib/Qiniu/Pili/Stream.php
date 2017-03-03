@@ -87,7 +87,7 @@ class Stream
      * @start: Unix 时间戳, 限定了查询的时间范围, 0 值表示不限定, 系统会返回所有时间的直播历史.
      * @end: Unix 时间戳, 限定了查询的时间范围, 0 值表示不限定, 系统会返回所有时间的直播历史.
      * RETURN
-     * @Array
+     * @Items: 包含(start,end)的一组数组.
      *   @start: Unix 时间戳, 直播开始时间.
      *   @end: Unix 时间戳, 直播结束时间.
      */
