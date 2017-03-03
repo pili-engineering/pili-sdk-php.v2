@@ -285,7 +285,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 ```php
     try{
         $resp = $hub->batchLiveStatus(array($streamKey,"foo","bar"));
-        print_r($resp);
+        print_r($resp["items"]);
     }catch(\Exception $e) {
              echo "Error:",$e;
     }
@@ -410,7 +410,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 
 ```php
     $records= $stream->historyActivity(0,0);
-    print_r($records);
+    print_r($records["items"]);
     /*
     start=[start] end=[end]
     */

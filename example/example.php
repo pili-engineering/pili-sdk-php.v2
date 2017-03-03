@@ -37,7 +37,7 @@ try {
     print_r($resp);
     echo "================Batch live streams\n";
     $resp = $hub->batchLiveStatus(array($streamKey,"foo","bar"));
-    print_r($resp);
+    print($resp["items"]);
 } catch (\Exception $e) {
     echo "Error:", $e, "\n";
 }
@@ -103,7 +103,7 @@ try {
     //查询推流历史
     echo "================Get stream history record:\n";
     $records = $stream->historyActivity(0, 0);
-    print_r($records);
+    print_r($records["items"]);
 } catch (\Exception $e) {
     echo "Error:", $e, "\n";
 }
