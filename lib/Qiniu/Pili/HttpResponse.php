@@ -15,11 +15,11 @@ class HttpResponse
      */
     public function __construct($code, $raw_body, $headers)
     {
-        $this->code     = $code;
-        $this->headers  = $this->get_headers_from_curl_response($headers);
+        $this->code = $code;
+        $this->headers = $this->get_headers_from_curl_response($headers);
         $this->raw_body = $raw_body;
-        $this->body     = $raw_body;
-        $json           = json_decode($raw_body, true);
+        $this->body = $raw_body;
+        $json = json_decode($raw_body, true);
         if (json_last_error() == JSON_ERROR_NONE) {
             $this->body = $json;
         }
@@ -69,4 +69,5 @@ class HttpResponse
         return $result;
     }
 }
+
 ?>

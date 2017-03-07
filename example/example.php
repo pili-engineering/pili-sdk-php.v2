@@ -36,7 +36,7 @@ try {
     $resp = $hub->listLiveStreams("php-sdk-test", 1, "");
     print_r($resp);
     echo "================Batch live streams\n";
-    $resp = $hub->batchLiveStatus(array($streamKey,"foo","bar"));
+    $resp = $hub->batchLiveStatus(array($streamKey, "foo", "bar"));
     print($resp["items"]);
 } catch (\Exception $e) {
     echo "Error:", $e, "\n";
@@ -53,7 +53,7 @@ try {
 try {
     //禁用流
     echo "================Disable stream:\n";
-    $stream->disable(time()+120);
+    $stream->disable(time() + 120);
     $status = $stream->liveStatus();
     echo "liveStatus:\n";
     print_r($status);
@@ -91,7 +91,7 @@ try {
 try {
     //保存直播数据
     echo "================Save stream:\n";
-    $resp = $stream->saveas(array("format"=>"mp4"));
+    $resp = $stream->saveas(array("format" => "mp4"));
     print_r($resp);
     $resp = $stream->saveas();
     print_r($resp);
@@ -111,7 +111,7 @@ try {
 try {
     //保存直播截图
     echo "================Save snapshot:\n";
-    $resp = $stream->snapshot(array("format"=>"jpg"));
+    $resp = $stream->snapshot(array("format" => "jpg"));
     print_r($resp);
     $resp = $stream->snapshot();
     print_r($resp);

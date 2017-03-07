@@ -6,8 +6,8 @@ use \Qiniu\Pili\HttpResponse;
 class HttpRequest
 {
     const DELETE = "DELETE";
-    const GET    = "GET";
-    const POST   = "POST";
+    const GET = "GET";
+    const POST = "POST";
 
     private static $verifyPeer = false;
     private static $socketTimeout = null;
@@ -71,11 +71,11 @@ class HttpRequest
     private static function getArrayFromQuerystring($querystring)
     {
         $pairs = explode("&", $querystring);
-        $vars  = array();
+        $vars = array();
         foreach ($pairs as $pair) {
-            $nv          = explode("=", $pair, 2);
-            $name        = $nv[0];
-            $value       = $nv[1];
+            $nv = explode("=", $pair, 2);
+            $name = $nv[0];
+            $value = $nv[1];
             $vars[$name] = $value;
         }
         return $vars;
@@ -90,10 +90,10 @@ class HttpRequest
     {
         $url_parsed = parse_url($url);
         $scheme = $url_parsed['scheme'] . '://';
-        $host   = $url_parsed['host'];
-        $port   = (isset($url_parsed['port']) ? $url_parsed['port'] : null);
-        $path   = (isset($url_parsed['path']) ? $url_parsed['path'] : null);
-        $query  = (isset($url_parsed['query']) ? $url_parsed['query'] : null);
+        $host = $url_parsed['host'];
+        $port = (isset($url_parsed['port']) ? $url_parsed['port'] : null);
+        $path = (isset($url_parsed['path']) ? $url_parsed['path'] : null);
+        $query = (isset($url_parsed['query']) ? $url_parsed['query'] : null);
         if ($query != null) {
             $query = '?' . http_build_query(self::getArrayFromQuerystring($url_parsed['query']));
         }
@@ -158,20 +158,21 @@ class HttpRequest
             curl_setopt($ch, CURLOPT_TIMEOUT, self::$socketTimeout);
         }
         $response = curl_exec($ch);
-        $error    = curl_error($ch);
+        $error = curl_error($ch);
         if ($error) {
             throw new \Exception($error);
         }
         // Split the full response in its headers and body
-        $curl_info   = curl_getinfo($ch);
+        $curl_info = curl_getinfo($ch);
         $header_size = $curl_info["header_size"];
-        $header      = substr($response, 0, $header_size);
-        $body        = substr($response, $header_size);
-        $httpCode    = $curl_info["http_code"];
+        $header = substr($response, 0, $header_size);
+        $body = substr($response, $header_size);
+        $httpCode = $curl_info["http_code"];
         if ($httpCode >= 400) {
             throw new \Exception($body);
         }
         return new HttpResponse($httpCode, $body, $header);
     }
 }
+
 ?>
