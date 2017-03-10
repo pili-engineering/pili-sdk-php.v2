@@ -7,22 +7,25 @@
     - [x] RTMP直播地址: RTMPPlayURL(domain, hub, streamKey)
     - [x] HLS直播地址: HLSPlayURL(domain, hub, streamKey)
     - [x] HDL直播地址: HDLPlayURL(domain, hub, streamKey)
-    - [x] 截图直播地址: SnapshotPlayURL(domain, hub, streamKey)
+    - [x] 直播封面地址: SnapshotPlayURL(domain, hub, streamKey)
 - Hub
     - [x] 创建流: hub->create(streamKey)
     - [x] 获得流: hub->stream(streamKey)
     - [x] 列出流: hub->listStreams(prefix, limit, marker)
     - [x] 列出正在直播的流: hub->listLiveStreams(prefix, limit, marker)
+    - [x] 批量查询直播信息: hub->batchLiveStatus(streamKeys)
 - Stream
     - [x] 流信息: stream->info()
     - [x] 启用流: stream->enable()
-    - [x] 禁用流: stream->disable()
+    - [x] 禁用流: stream->disableTill(till)
     - [x] 查询直播状态: stream->liveStatus()
-    - [x] 保存直播回放: stream->save(start, end)
+    - [x] 保存直播回放: stream->saveas(options)
+    - [x] 保存直播截图: stream->snapshot(options)
+    - [x] 更改流的实时转码规格: stream->updateConverts(profiles)
     - [x] 查询直播历史: stream->historyActivity(start, end)
-
-
-
+    
+    
+    
 ## Contents
 
 - [Installation](#installation)
@@ -40,13 +43,19 @@
         - [Get a stream](#get-a-stream)
         - [List streams](#list-streams)
         - [List live streams](#list-live-streams)
+        - [Batch query live Status](#batch-query-live-status)
     - [Stream](#stream)
         - [Get stream info](#get-stream-info)
-        - [Disable a stream](#disable-a-stream)
         - [Enable a stream](#enable-a-stream)
+        - [Disable a stream](#disable-a-stream)
         - [Get stream live status](#get-stream-live-status)
-        - [Get stream history activity](#get-stream-history-activity)
         - [Save stream live playback](#save-stream-live-playback)
+        - [Save Stream snapshot](#save-stream-snapshot)
+        - [Update Stream converts](#update-stream-converts)
+        - [Get stream history activity](#get-stream-history-activity)
+        
+        
+        
 
 
 ## Installation
@@ -218,7 +227,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
              echo "Error:",$e;
     }
     /*
-    {hub:hubname,key:streamkey,disabled:false}
+    hub=[hubname] key=[streamkey]
     */
 ```
 
@@ -234,7 +243,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
              echo "Error:",$e;
     }
     /*
-    {hub:hubname,key:streamkey,disabled:false}
+    hub=[hubname] key=[streamkey]
     */
 ```
 
@@ -250,7 +259,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
              echo "Error:",$e;
     }
     /*
-    keys=[streamkey] marker=
+    keys=[streamkey] marker=[marker]
     */
 ```
 
@@ -266,7 +275,22 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
              echo "Error:",$e;
     }
     /*
-    keys=[streamkey] marker=
+    keys=[streamkey] marker=[marker]
+    */
+```
+
+
+#### Batch query live Status
+
+```php
+    try{
+        $resp = $hub->batchLiveStatus(array($streamKey,"foo","bar"));
+        print_r($resp["items"]);
+    }catch(\Exception $e) {
+             echo "Error:",$e;
+    }
+    /*
+    key=[key] startAt=[startAt] clientIP=[clientIP] bps=[bps] fps=[fps]
     */
 ```
 
@@ -282,7 +306,7 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
        echo "Error:",$e;
     }
     /*
-    {hub:PiliSDKTest,key:streamkey,disabled:false}
+    hub=[PiliSDKTest] key=[streamkey] disabledTill=[disabledTill] converts=[converts]
     */
 ```
 
@@ -300,8 +324,8 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
        echo "Error:",$e;
     }
     /*
-    before disable: {hub:PiliSDKTest,key:streamkey,disabled:false}
-    after disable: {hub:PiliSDKTest,key:streamkey,disabled:true}
+    before disable: hub=[PiliSDKTest] key=[streamkey] disabledTill=0 converts=[converts]
+    after disable: hub=[PiliSDKTest] key=[streamkey] disabledTill=[disabledTill] converts=[converts]
     */
 ```
 
@@ -319,8 +343,8 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
        echo "Error:",$e;
     }
     /*
-    before enable: {hub:PiliSDKTest,key:streamkey,disabled:true}
-    after enable: {hub:PiliSDKTest,key:streamkey,disabled:false}
+    before enable: hub=[PiliSDKTest] key=[streamkey] disabledTill=[disabledTill] converts=[converts]
+    after enable: hub=[PiliSDKTest] key=[streamkey] disabledTill=0 converts=[converts]
     */
 ```
 
@@ -335,8 +359,50 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
        echo "Error:",$e;
    }
    /*
-   {StartAt:1463382400 ClientIP:172.21.1.214:52897 BPS:128854 FPS:{Audio:38 Video:23 Data:0}}
+   startAt=[startAt] clientIP=[clientIP] bps=[bps] fps=[fps]
    */
+```
+
+
+#### Save stream live playback
+```php
+    try {
+        $resp = $stream->saveas(array("format"=>"mp4"));
+        print_r($resp);
+    } catch (\Exception $e) {
+        echo "Error:", $e, "\n";
+    }
+    /*
+    fname=[fname] persistentID=[persistentID]
+    */
+```
+
+
+#### Save Stream snapshot
+```php
+    try {
+        $resp = $stream->snapshot(array("format"=>"jpg"));
+        print_r($resp);
+    } catch (\Exception $e) {
+        echo "Error:", $e, "\n";
+    }
+    /*
+    fname=[fname]
+    */
+```
+
+
+#### Update Stream converts
+```php
+    try {
+        $stream->updateConverts(array("480p", "720p"));
+    } catch (\Exception $e) {
+        echo "Error:", $e, "\n";
+    }
+    /*
+    before convert: hub=[PiliSDKTest] key=[streamkey] disabledTill=[disabledTill] converts=[converts]
+    after convert: hub=[PiliSDKTest] key=[streamkey] disabledTill=[disabledTill] converts=["480p", "720p"]
+    */
 ```
 
 
@@ -344,9 +410,9 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 
 ```php
     $records= $stream->historyActivity(0,0);
-    print_r($records);
+    print_r($records["items"]);
     /*
-    [{1463382401 1463382441}]
+    start=[start] end=[end]
     */
 ```
 
@@ -367,6 +433,13 @@ require_once '/path/to/pili-sdk-php/lib/Pili_v2.php';
 
 
 ## History
+- 2.1.0
+    -   Update API
+        - $hub->batchLiveStatus(streamKeys)
+        - $stream->disableTill(till)
+        - $stream->saveas(options)
+        - $stream->snapshot(options)
+        - $stream->updateConverts(profiles)
 - 2.0.0
     - pili.v2
 - 1.5.4
