@@ -38,5 +38,4 @@ class Mac
         return 'Qiniu ' . $this->_accessKey . ':' . Utils::sign($this->_secretKey, $data);
     }
 }
-
 ?>

@@ -2,8 +2,8 @@
 
 require(join(DIRECTORY_SEPARATOR, array(dirname(dirname(__FILE__)), 'lib', 'Pili_v2.php')));
 
-$ak = "Ge_kRfuV_4JW0hOCOnRq5_kD1sX53bKVht8FNdd3";
-$sk = "0fU92CSrvgNJTVCXqbuRVqkntPFJLFERGa4akpko";
+$ak = "7O7hf7Ld1RrC_fpZdFvU8aCgOPuhw2K4eapYOdII";
+$sk = "6Rq7rMSUHHqOgo0DJjh15tHsGUBEH9QhWqqyj4ka";
 $hubName = "PiliSDKTest";
 
 //创建hub
@@ -35,9 +35,6 @@ try {
     echo "================List live streams\n";
     $resp = $hub->listLiveStreams("php-sdk-test", 1, "");
     print_r($resp);
-    echo "================Batch live streams\n";
-    $resp = $hub->batchLiveStatus(array($streamKey, "foo", "bar"));
-    print($resp["items"]);
 } catch (\Exception $e) {
     echo "Error:", $e, "\n";
 }
@@ -51,50 +48,32 @@ try {
 }
 
 try {
-    //禁用流
-    echo "================Disable stream:\n";
-    $stream->disable(time() + 120);
-    $status = $stream->liveStatus();
-    echo "liveStatus:\n";
-    print_r($status);
-    $info = $stream->info();
-    echo "info:\n";
-    print_r($info);
-} catch (\Exception $e) {
-    echo "Error:", $e, "\n";
-}
-
-try {
     //启用流
     echo "================Enable stream:\n";
     $stream->enable();
     $status = $stream->liveStatus();
     echo "liveStatus:\n";
     print_r($status);
-    $info = $stream->info();
-    echo "info:\n";
-    print_r($info);
 } catch (\Exception $e) {
     echo "Error:", $e, "\n";
 }
 
+try {
+    //禁用流
+    echo "================Disable stream:\n";
+    $stream->disable();
+    $status = $stream->liveStatus();
+    echo "liveStatus:\n";
+    print_r($status);
+} catch (\Exception $e) {
+    echo "Error:", $e, "\n";
+}
 
 try {
     //保存直播数据
     echo "================Save stream:\n";
-    $fname = $stream->save(0, time());
+    $fname = $stream->save(1463217523, 1463303923);
     print_r($fname);
-} catch (\Exception $e) {
-    echo "Error:", $e, "\n";
-}
-
-try {
-    //保存直播数据
-    echo "================Save stream:\n";
-    $resp = $stream->saveas(array("format" => "mp4"));
-    print_r($resp);
-    $resp = $stream->saveas();
-    print_r($resp);
 } catch (\Exception $e) {
     echo "Error:", $e, "\n";
 }
@@ -102,33 +81,8 @@ try {
 try {
     //查询推流历史
     echo "================Get stream history record:\n";
-    $records = $stream->historyActivity(0, 0);
-    print_r($records["items"]);
-} catch (\Exception $e) {
-    echo "Error:", $e, "\n";
-}
-
-try {
-    //保存直播截图
-    echo "================Save snapshot:\n";
-    $resp = $stream->snapshot(array("format" => "jpg"));
-    print_r($resp);
-    $resp = $stream->snapshot();
-    print_r($resp);
-} catch (\Exception $e) {
-    echo "Error:", $e, "\n";
-}
-
-try {
-    //更改流的实时转码规格
-    echo "================Update converts:\n";
-    $info = $stream->info();
-    echo "before update converts. info:\n";
-    print_r($info);
-    $stream->updateConverts(array("480p", "720p"));
-    $info = $stream->info();
-    echo "after update converts. info:\n";
-    print_r($info);
+    $records = $stream->historyActivity(1463217523, 1463303923);
+    print_r($records);
 } catch (\Exception $e) {
     echo "Error:", $e, "\n";
 }
