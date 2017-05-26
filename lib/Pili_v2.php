@@ -11,4 +11,5 @@ require(join(DIRECTORY_SEPARATOR, array($root, 'Qiniu/Pili', 'Transport.php')));
 require(join(DIRECTORY_SEPARATOR, array($root, 'Qiniu/Pili', 'Hub.php')));
 require(join(DIRECTORY_SEPARATOR, array($root, 'Qiniu/Pili', 'Stream.php')));
 require(join(DIRECTORY_SEPARATOR, array($root, 'Qiniu/Pili', 'Client.php')));
+require(join(DIRECTORY_SEPARATOR, array($root, 'Qiniu/Pili', 'RoomClient.php')));
 ?>
