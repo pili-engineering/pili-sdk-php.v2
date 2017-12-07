@@ -1,27 +1,24 @@
 <?php
-
 namespace Qiniu\Pili;
-
 use \Qiniu\Pili\Utils;
-
 class RoomClient
 {
     private $_transport;
     private $_mac;
-
     public function __construct($mac)
     {
         $this->_mac = $mac;
         $this->_transport = new Transport($mac);
     }
-
     /*
      * ownerId: 要创建房间的所有者
      * roomName: 房间名称
-     * Version:连麦的版本号
+     * Version:连麦的版本号 支持 v2 和 v1 
      */
     public function createRoom($ownerId, $roomName = NULL,$Version="v2")
     {
+
+        //$url = Config::getInstance()->RTCAPI_HOST . "/v1/rooms";
         $url = Config::getInstance()->RTCAPI_HOST . sprintf("/%s/rooms",$Version);
         $params['owner_id'] = $ownerId;
         if (!empty($roomName)) {
@@ -33,16 +30,15 @@ class RoomClient
         } catch (\Exception $e) {
             return $e;
         }
-
         return $ret;
     }
-
     /*
      * roomName: 房间名称
      * Version:连麦的版本号
      */
-    public function getRoom($roomName,,$Version="v2")
+    public function getRoom($roomName,$Version="v2")
     {
+       // $url = sprintf("%s/v1/rooms/%s", Config::getInstance()->RTCAPI_HOST, $roomName);
         $url = sprintf("%s/%s/rooms/%s", Config::getInstance()->RTCAPI_HOST, $Version,$roomName);
         try {
             $ret = $this->_transport->send(HttpRequest::GET, $url);
@@ -51,7 +47,6 @@ class RoomClient
         }
         return $ret;
     }
-
     /*
      * roomName: 房间名称
      * Version:连麦的版本号
@@ -79,7 +74,6 @@ class RoomClient
             return $e;
         }
         return $ret;
-
     }
     /*
      * 踢出玩家
@@ -95,7 +89,6 @@ public function kickingPlayer($roomName,$UserId,$Version="v2"){
         return $e;
     }
     return $ret;
-
 }
     /*
      * roomName: 房间名称
@@ -109,9 +102,7 @@ public function kickingPlayer($roomName,$UserId,$Version="v2"){
         $params['user_id'] = $userId;
         $params['perm'] = $perm;
         $params['expire_at'] = $expireAt;
-
         $roomAccessString = json_encode($params);
-
         $encodedRoomAccess = Utils::base64UrlEncode($roomAccessString);
         $sign = hash_hmac('sha1', $encodedRoomAccess, $this->_mac->_secretKey, true);
         $encodedSign = Utils::base64UrlEncode($sign);
