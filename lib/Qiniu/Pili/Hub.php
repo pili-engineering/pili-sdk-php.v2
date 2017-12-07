@@ -66,6 +66,7 @@ class Hub
         foreach ($ret["items"] as $item) {
             array_push($keys, $item["key"]);
         }
+        $marker = $ret["marker"];
         $ret = array();
         $ret["keys"] = $keys;
         $ret["omarker"] = $marker;
