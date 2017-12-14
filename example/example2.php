@@ -22,7 +22,7 @@ try {
     $resp=$client->kickingPlayer("testroom","qiniu-f6e07b78-4dc8-45fb-a701-a9e158abb8e6","v1");
     print_r($resp);
     //鉴权的有效时间: 1个小时.
-    $resp = $client->roomToken("testroom", "123", 'admin', (time()+3600));
+    $resp = $client->roomToken("testroom", "123", 'admin', (time()+3600,"v1"));
      print_r($resp);
      //删除房间
     $resp = $client->deleteRoom("testroom","v1");
