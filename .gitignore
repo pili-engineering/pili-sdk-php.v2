@@ -2,3 +2,4 @@
 *.swp
 composer.lock
 vendor
+.idea
