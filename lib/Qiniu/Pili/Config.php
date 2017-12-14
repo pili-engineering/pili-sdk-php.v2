@@ -8,9 +8,10 @@ final class Config
 
     public $USE_HTTPS = false;
     public $API_HOST = 'pili.qiniuapi.com';
-    public $RTCAPI_HOST = 'http://rtc.qiniuapi.com';
-//    public $API_HOST = '10.200.20.28:7778';
     public $API_VERSION = 'v2';
+
+    public $RTCAPI_HOST = 'http://rtc.qiniuapi.com';
+    public $RTCAPI_VERSION = 'v2';   //连麦版本号，可以设置 "v1" 和 "v2"
 
     protected static $_instance = NULL;
 
