@@ -93,9 +93,13 @@ public function kickingPlayer($roomName,$UserId,$Version="v2"){
      * userId: 请求加入房间的用户ID
      * perm: 该用户的房间管理权限，"admin"或"user"，房间主播为"admin"，拥有将其他用户移除出房间等特权。
      * expireAt: int64类型，鉴权的有效时间，传入秒为单位的64位Unix时间，token将在该时间后失效。
+     * Version:连麦的版本号
      */
-    public function roomToken($roomName, $userId, $perm, $expireAt)
+    public function roomToken($roomName, $userId, $perm, $expireAt,$version="v2")
     {
+        if($version=="v2"){
+            $params['version']="2.0";
+        }
         $params['room_name'] = $roomName;
         $params['user_id'] = $userId;
         $params['perm'] = $perm;
