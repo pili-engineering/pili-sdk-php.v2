@@ -22,15 +22,13 @@ class RoomClient
      */
     public function createRoom($ownerId, $roomName = NULL)
     {
-
-        $url = $this->_baseURL . '/' . $roomName;
         $params['owner_id'] = $ownerId;
         if (!empty($roomName)) {
             $params['room_name'] = $roomName;
         }
         $body = json_encode($params);
         try {
-            $ret = $this->_transport->send(HttpRequest::POST, $url, $body);
+            $ret = $this->_transport->send(HttpRequest::POST, $this->_baseURL, $body);
         } catch (\Exception $e) {
             return $e;
         }
