@@ -1,5 +1,5 @@
 <?php
-require(join(DIRECTORY_SEPARATOR, array(dirname(dirname(__FILE__)), 'lib', 'Pili_v2.php')));
+require join(DIRECTORY_SEPARATOR, array(dirname(dirname(__FILE__)), 'lib', 'Pili_v2.php'));
 $ak = "Ge_kRfuV_4JW0hOCOnRq5_kD1sX53bKVht8FNdd3";
 $sk = "0fU92CSrvgNJTVCXqbuRVqkntPFJLFERGa4akpko";
 $hubName = "PiliSDKTest";
