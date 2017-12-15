@@ -3,7 +3,7 @@ namespace Qiniu\Pili;
 
 final class Config
 {
-    const SDK_VERSION = '2.0.0';
+    const SDK_VERSION = '2.1.1';
     const SDK_USER_AGENT = 'pili-sdk-php';
 
     public $USE_HTTPS = false;
