@@ -13,7 +13,7 @@ final class Config
     public $RTCAPI_HOST = 'http://rtc.qiniuapi.com';
     public $RTCAPI_VERSION = 'v2';   //连麦版本号，可以设置 "v1" 和 "v2"
 
-    protected static $_instance = NULL;
+    protected static $_instance = null;
 
     protected function __construct()
     {
@@ -36,7 +36,7 @@ final class Config
         if (property_exists(self::getInstance(), $property)) {
             return self::getInstance()->$property;
         } else {
-            return NULL;
+            return null;
         }
     }
 
@@ -48,5 +48,3 @@ final class Config
         return self::getInstance();
     }
 }
-
-?>

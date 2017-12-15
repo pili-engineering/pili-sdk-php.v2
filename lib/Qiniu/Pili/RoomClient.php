@@ -20,7 +20,7 @@ class RoomClient
      * ownerId: 要创建房间的所有者
      * roomName: 房间名称
      */
-    public function createRoom($ownerId, $roomName = NULL)
+    public function createRoom($ownerId, $roomName = null)
     {
         $params['owner_id'] = $ownerId;
         if (!empty($roomName)) {
@@ -67,7 +67,8 @@ class RoomClient
      * 获取房间的人数
      * roomName: 房间名称
      */
-    public function getRoomUserNum($roomName){
+    public function getRoomUserNum($roomName)
+    {
         $url = sprintf("%s/%s/users", $this->_baseURL, $roomName);
         try {
             $ret = $this->_transport->send(HttpRequest::GET, $url);
@@ -82,8 +83,9 @@ class RoomClient
     * roomName: 房间名称
     * userId: 请求加入房间的用户ID
     */
-    public function kickingPlayer($roomName,$UserId){
-        $url = sprintf("%s/%s/users/%s", $this->_baseURL, $roomName,$UserId);
+    public function kickingPlayer($roomName, $UserId)
+    {
+        $url = sprintf("%s/%s/users/%s", $this->_baseURL, $roomName, $UserId);
         try {
             $ret = $this->_transport->send(HttpRequest::DELETE, $url);
         } catch (\Exception $e) {
@@ -101,7 +103,7 @@ class RoomClient
     public function roomToken($roomName, $userId, $perm, $expireAt)
     {
         $ver = Config::getInstance()->RTCAPI_VERSION;
-        if($ver === 'v2' ){
+        if ($ver === 'v2') {
             $params['version']="2.0";
         }
         $params['room_name'] = $roomName;

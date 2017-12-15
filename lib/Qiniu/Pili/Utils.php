@@ -37,6 +37,4 @@ final class Utils
         $ua .= ' PHP/' . PHP_VERSION;
         return $ua;
     }
-
 }
-?>

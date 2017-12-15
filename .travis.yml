@@ -1,0 +1,13 @@
+language: php
+
+php:
+  - 5.4
+  - 7.0
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-source --dev
+
+script:
+  - ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+

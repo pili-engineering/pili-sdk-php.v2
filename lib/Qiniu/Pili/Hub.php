@@ -4,7 +4,6 @@ namespace Qiniu\Pili;
 use \Qiniu\Pili\HttpRequest;
 use \Qiniu\Pili\Utils;
 
-
 class Hub
 {
     private $_hub;
@@ -158,5 +157,3 @@ function SnapshotPlayURL($domain, $hub, $streamKey)
 {
     return sprintf("http://%s/%s/%s.jpg", $domain, $hub, $streamKey);
 }
-
-?>

@@ -69,4 +69,3 @@ class HttpResponse
         return $result;
     }
 }
-?>
