@@ -58,9 +58,9 @@ class HttpRequest
         if (is_object($arrays)) {
             $arrays = get_object_vars($arrays);
         }
-        foreach ($arrays AS $key => $value) {
+        foreach ($arrays as $key => $value) {
             $k = isset($prefix) ? $prefix . '[' . $key . ']' : $key;
-            if (!$value instanceof \CURLFile AND (is_array($value) OR is_object($value))) {
+            if (!$value instanceof \CURLFile and (is_array($value) or is_object($value))) {
                 self::http_build_query_for_curl($value, $new, $k);
             } else {
                 $new[$k] = $value;
@@ -97,8 +97,9 @@ class HttpRequest
         if ($query != null) {
             $query = '?' . http_build_query(self::getArrayFromQuerystring($url_parsed['query']));
         }
-        if ($port && $port[0] != ":")
+        if ($port && $port[0] != ":") {
             $port = ":" . $port;
+        }
         $result = $scheme . $host . $port . $path . $query;
         return $result;
     }
@@ -118,10 +119,11 @@ class HttpRequest
      * @throws Exception if a cURL error occurs
      * @return HttpResponse
      */
-    public static function send($httpMethod, $url, $body = NULL, $headers = array())
+    public static function send($httpMethod, $url, $body = null, $headers = array())
     {
-        if ($headers == NULL)
+        if ($headers == null) {
             $headers = array();
+        }
         $annexHeaders = array();
         $finalHeaders = array_merge($headers, self::$defaultHeaders);
         foreach ($finalHeaders as $key => $val) {
@@ -137,7 +139,7 @@ class HttpRequest
             } else {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
             }
-        } else if (is_array($body)) {
+        } elseif (is_array($body)) {
             if (strpos($url, '?') !== false) {
                 $url .= "&";
             } else {
@@ -174,4 +176,3 @@ class HttpRequest
         return new HttpResponse($httpCode, $body, $header);
     }
 }
-?>

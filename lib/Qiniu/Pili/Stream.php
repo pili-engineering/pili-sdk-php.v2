@@ -46,7 +46,7 @@ class Stream
      * PARAM
      * @till: Unix 时间戳, 在这之前流均不可用.
      */
-    public function disable($till = NULL)
+    public function disable($till = null)
     {
         $url = $this->_baseURL . "/disabled";
         if (empty($till)) {
@@ -91,7 +91,7 @@ class Stream
      *   @start: Unix 时间戳, 直播开始时间.
      *   @end: Unix 时间戳, 直播结束时间.
      */
-    public function historyActivity($start = NULL, $end = NULL)
+    public function historyActivity($start = null, $end = null)
     {
         $url = $this->_baseURL . "/historyrecord";
         $flag = "?";
@@ -113,7 +113,7 @@ class Stream
      * RETURN
      * @fname: 保存到bucket里的文件名, 由系统生成.
      */
-    public function save($start = NULL, $end = NULL)
+    public function save($start = null, $end = null)
     {
         $url = $this->_baseURL . "/saveas";
         if (!empty($start)) {
@@ -143,13 +143,13 @@ class Stream
      * @fname: 保存到bucket里的文件名.
      * @persistentID: 异步模式时，持久化异步处理任务ID，通常用不到该字段.
      */
-    public function saveas($options = NULL)
+    public function saveas($options = null)
     {
         $url = $this->_baseURL . "/saveas";
         if (!empty($options)) {
             $body = json_encode($options);
         } else {
-            $body = NULL;
+            $body = null;
         }
         return $this->_transport->send(HttpRequest::POST, $url, $body);
     }
@@ -163,13 +163,13 @@ class Stream
      * RETURN
      * @fname: 保存到bucket里的文件名.
      */
-    public function snapshot($options = NULL)
+    public function snapshot($options = null)
     {
         $url = $this->_baseURL . "/snapshot";
         if (!empty($options)) {
             $body = json_encode($options);
         } else {
-            $body = NULL;
+            $body = null;
         }
         return $this->_transport->send(HttpRequest::POST, $url, $body);
     }
@@ -186,8 +186,4 @@ class Stream
         $body = json_encode($params);
         return $this->_transport->send(HttpRequest::POST, $url, $body);
     }
-
-
 }
-
-?>
