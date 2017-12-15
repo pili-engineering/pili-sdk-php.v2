@@ -1,43 +1,46 @@
 <?php
 namespace Qiniu\Pili;
-use \Qiniu\Pili\Utils;
+
 class RoomClient
 {
     private $_transport;
     private $_mac;
+    private $_baseURL;
+
     public function __construct($mac)
     {
         $this->_mac = $mac;
         $this->_transport = new Transport($mac);
+
+        $cfg = Config::getInstance();
+        $this->_baseURL = sprintf("%s/%s/rooms", $cfg->RTCAPI_HOST, $cfg->RTCAPI_VERSION);
     }
+
     /*
      * ownerId: 要创建房间的所有者
      * roomName: 房间名称
-     * Version:连麦的版本号 支持 v2 和 v1 
      */
-    public function createRoom($ownerId, $roomName = NULL,$Version="v2")
+    public function createRoom($ownerId, $roomName = NULL)
     {
-
-        $url = Config::getInstance()->RTCAPI_HOST . sprintf("/%s/rooms",$Version);
         $params['owner_id'] = $ownerId;
         if (!empty($roomName)) {
             $params['room_name'] = $roomName;
         }
         $body = json_encode($params);
         try {
-            $ret = $this->_transport->send(HttpRequest::POST, $url, $body);
+            $ret = $this->_transport->send(HttpRequest::POST, $this->_baseURL, $body);
         } catch (\Exception $e) {
             return $e;
         }
         return $ret;
     }
+
     /*
      * roomName: 房间名称
-     * Version:连麦的版本号
      */
-    public function getRoom($roomName,$Version="v2")
+    public function getRoom($roomName)
     {
-        $url = sprintf("%s/%s/rooms/%s", Config::getInstance()->RTCAPI_HOST, $Version,$roomName);
+        $url = $this->_baseURL . '/' . $roomName;
         try {
             $ret = $this->_transport->send(HttpRequest::GET, $url);
         } catch (\Exception $e) {
@@ -45,13 +48,13 @@ class RoomClient
         }
         return $ret;
     }
+
     /*
      * roomName: 房间名称
-     * Version:连麦的版本号
      */
-    public function deleteRoom($roomName,$Version="v2")
+    public function deleteRoom($roomName)
     {
-        $url = sprintf("%s/%s/rooms/%s", Config::getInstance()->RTCAPI_HOST,$Version ,$roomName);
+        $url = $this->_baseURL . '/' . $roomName;
         try {
             $ret = $this->_transport->send(HttpRequest::DELETE, $url);
         } catch (\Exception $e) {
@@ -59,13 +62,13 @@ class RoomClient
         }
         return $ret;
     }
-        /*
+
+    /*
      * 获取房间的人数
      * roomName: 房间名称
-     * Version:连麦的版本号
-    */
-    public function getRoomUserNum($roomName,$Version="v2"){
-        $url = sprintf("%s/%s/rooms/%s/users", Config::getInstance()->RTCAPI_HOST,$Version, $roomName);
+     */
+    public function getRoomUserNum($roomName){
+        $url = sprintf("%s/%s/users", $this->_baseURL, $roomName);
         try {
             $ret = $this->_transport->send(HttpRequest::GET, $url);
         } catch (\Exception $e) {
@@ -73,31 +76,32 @@ class RoomClient
         }
         return $ret;
     }
-    /*
-     * 踢出玩家
+
+   /*
+    * 踢出玩家
     * roomName: 房间名称
     * userId: 请求加入房间的用户ID
-    * Version:连麦的版本号
-  */
-public function kickingPlayer($roomName,$UserId,$Version="v2"){
-    $url = sprintf("%s/%s/rooms/%s/users/%s", Config::getInstance()->RTCAPI_HOST,$Version, $roomName,$UserId);
-    try {
-        $ret = $this->_transport->send(HttpRequest::DELETE, $url);
-    } catch (\Exception $e) {
-        return $e;
+    */
+    public function kickingPlayer($roomName,$UserId){
+        $url = sprintf("%s/%s/users/%s", $this->_baseURL, $roomName,$UserId);
+        try {
+            $ret = $this->_transport->send(HttpRequest::DELETE, $url);
+        } catch (\Exception $e) {
+            return $e;
+        }
+        return $ret;
     }
-    return $ret;
-}
+
     /*
      * roomName: 房间名称
      * userId: 请求加入房间的用户ID
      * perm: 该用户的房间管理权限，"admin"或"user"，房间主播为"admin"，拥有将其他用户移除出房间等特权。
      * expireAt: int64类型，鉴权的有效时间，传入秒为单位的64位Unix时间，token将在该时间后失效。
-     * Version:连麦的版本号
      */
-    public function roomToken($roomName, $userId, $perm, $expireAt,$version="v2")
+    public function roomToken($roomName, $userId, $perm, $expireAt)
     {
-        if($version=="v2"){
+        $ver = Config::getInstance()->RTCAPI_VERSION;
+        if($ver === 'v2' ){
             $params['version']="2.0";
         }
         $params['room_name'] = $roomName;
