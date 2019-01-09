@@ -28,5 +28,5 @@ try {
     $resp = $client->deleteRoom("testroom");
     print_r($resp);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }

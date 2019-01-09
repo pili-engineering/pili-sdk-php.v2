@@ -170,8 +170,8 @@ class HttpRequest
         $header      = substr($response, 0, $header_size);
         $body        = substr($response, $header_size);
         $httpCode    = $curl_info["http_code"];
-        if ($httpCode >= 400) {
-            throw new \Exception($body);
+        if ($httpCode != 200) {
+            throw new \Exception("\nhttpcode:".$httpCode."\nmessage".$body);
         }
         return new HttpResponse($httpCode, $body, $header);
     }
