@@ -35,14 +35,14 @@ try {
     $resp = $hub->batchLiveStatus(array($streamKey, "foo", "bar"));
     print($resp["items"]);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 try {
     echo "================Get liveStatus:\n";
     $status = $stream->liveStatus();
     print_r($status);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 try {
     //禁用流
@@ -55,7 +55,7 @@ try {
     echo "info:\n";
     print_r($info);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 try {
     //启用流
@@ -68,7 +68,7 @@ try {
     echo "info:\n";
     print_r($info);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 try {
     //保存直播数据
@@ -76,7 +76,7 @@ try {
     $fname = $stream->save(0, time());
     print_r($fname);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 try {
     //保存直播数据
@@ -86,7 +86,7 @@ try {
     $resp = $stream->saveas();
     print_r($resp);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 try {
     //查询推流历史
@@ -94,7 +94,7 @@ try {
     $records = $stream->historyActivity(0, 0);
     print_r($records["items"]);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 try {
     //保存直播截图
@@ -104,7 +104,7 @@ try {
     $resp = $stream->snapshot();
     print_r($resp);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 try {
     //更改流的实时转码规格
@@ -117,7 +117,7 @@ try {
     echo "after update converts. info:\n";
     print_r($info);
 } catch (\Exception $e) {
-    echo "Error:", $e, "\n";
+    echo "Error:", $e->getMessage(), "\n";
 }
 //RTMP 推流地址
 $url = Qiniu\Pili\RTMPPublishURL("publish-rtmp.test.com", $hubName, $streamKey, 3600, $ak, $sk);
