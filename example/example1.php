@@ -2,6 +2,7 @@
 require join(DIRECTORY_SEPARATOR, array(dirname(dirname(__FILE__)), 'lib', 'Pili_v2.php'));
 $ak = "Ge_kRfuV_4JW0hOCOnRq5_kD1sX53bKVht8FNdd3";
 $sk = "0fU92CSrvgNJTVCXqbuRVqkntPFJLFERGa4akpko";
+$publishkey = "xxxxx"; //expiry推流鉴权
 $hubName = "PiliSDKTest";
 //创建hub
 echo "================Create hub\n";
@@ -119,8 +120,11 @@ try {
 } catch (\Exception $e) {
     echo "Error:", $e->getMessage(), "\n";
 }
-//RTMP 推流地址
+//RTMP 推流地址 限时鉴权签算方式
 $url = Qiniu\Pili\RTMPPublishURL("publish-rtmp.test.com", $hubName, $streamKey, 3600, $ak, $sk);
+echo $url, "\n";
+//RTMP 推流地址 expiry签算方式
+$url = Qiniu\Pili\RTMPPublishURLv1("publish-rtmp.test.com", $hubName, $streamKey, 3600, $publishkey);
 echo $url, "\n";
 //RTMP 直播放址
 $url = Qiniu\Pili\RTMPPlayURL("live-rtmp.test.com", $hubName, $streamKey);

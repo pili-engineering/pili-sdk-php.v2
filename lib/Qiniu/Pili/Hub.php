@@ -134,6 +134,17 @@ function RTMPPublishURL($domain, $hub, $streamKey, $expireAfterSeconds, $accessK
     return sprintf("rtmp://%s%s&token=%s", $domain, $path, $token);
 }
 
+//----------------url
+//生成 RTMP 推流地址.
+//expireAfterSeconds 表示 URL 在多久之后失效.
+function RTMPPublishURLv1($domain, $hub, $streamKey, $expireAfterSeconds, $publishKey)
+{
+    $expire = time() + $expireAfterSeconds;
+    $path = sprintf("/%s/%s?expire=%d", $hub, $streamKey, $expire);
+    $token = Utils::sign($publishKey, $path);
+    return sprintf("rtmp://%s%s&token=%s", $domain, $path, $token);
+}
+
 //生成 RTMP 直播地址.
 function RTMPPlayURL($domain, $hub, $streamKey)
 {
