@@ -124,7 +124,7 @@ try {
 $url = Qiniu\Pili\RTMPPublishURL("publish-rtmp.test.com", $hubName, $streamKey, 3600, $ak, $sk);
 echo $url, "\n";
 //RTMP 推流地址 expiry签算方式
-$url = Qiniu\Pili\RTMPPublishURL("publish-rtmp.test.com", $hubName, $streamKey, 3600, $ak, $publishkey);
+$url = Qiniu\Pili\RTMPPublishURLv1("publish-rtmp.test.com", $hubName, $streamKey, 3600, $publishkey);
 echo $url, "\n";
 //RTMP 直播放址
 $url = Qiniu\Pili\RTMPPlayURL("live-rtmp.test.com", $hubName, $streamKey);
